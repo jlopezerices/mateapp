@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MateApp Demo — Matemática 5°</title>
+<meta name="description" content="Practica matemáticas de 5° Básico gratis. Personaje, ejercicios y más.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100vh;background:linear-gradient(160deg,#1e3a8a 0%,#2563eb 55%,#7c3aed 100%)}
+body{display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#fff;border-radius:24px;padding:28px 22px;width:100%;max-width:380px;text-align:center;box-shadow:0 12px 48px rgba(0,0,0,.25)}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:14px}
+.logo{font-size:56px;margin-bottom:8px}
+h1{font-size:22px;font-weight:700;color:#1f2937;margin-bottom:4px}
+.sub{font-size:13.5px;color:#6b7280;line-height:1.6;margin-bottom:20px}
+/* FEATURES */
+.features{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;text-align:left}
+.feat{display:flex;align-items:center;gap:10px;background:#f8fafc;border-radius:10px;padding:10px 12px;font-size:13px;color:#374151}
+.feat .fi{font-size:19px;flex-shrink:0}
+.feat .fl{font-size:10px;background:#fef3c7;color:#92400e;font-weight:700;padding:1px 7px;border-radius:20px;margin-left:auto;flex-shrink:0}
+/* MAIN CTA */
+.cta-main{display:block;width:100%;padding:16px;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;color:#fff;background:linear-gradient(135deg,#2563eb,#7c3aed);margin-bottom:10px;text-decoration:none}
+.cta-main:active{opacity:.85}
+/* INSTALL STEPS */
+.steps{display:none;margin-top:4px}
+.steps.show{display:block}
+.steps-ttl{font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.step-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;text-align:left}
+.step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-txt{font-size:13px;color:#374151;line-height:1.5}
+.step-txt strong{font-weight:600;color:#1f2937}
+/* PRO TEASER */
+.pro-teaser{background:linear-gradient(135deg,#1e3a8a,#2563eb);border-radius:14px;padding:14px;margin-top:16px}
+.pro-teaser p{font-size:12px;color:rgba(255,255,255,.85);margin-bottom:8px}
+.pro-teaser a{display:block;background:rgba(255,255,255,.2);color:#fff;text-decoration:none;border-radius:10px;padding:10px;font-size:13px;font-weight:700}
+.divider{border:none;border-top:1px solid #f0f0f0;margin:16px 0}
+.os-tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#6b7280;margin-bottom:14px}
+.os-tag span{background:#f3f4f6;padding:3px 10px;border-radius:20px;font-weight:600}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">VERSIÓN DEMO GRATUITA</div>
+  <div class="logo">📐</div>
+  <h1>MateApp Demo</h1>
+  <p class="sub">Practica Matemática 5° Básico con personaje propio, ejercicios aleatorios y la Guía Oficial de la Prueba Proceso 1</p>
+
+  <div class="features">
+    <div class="feat"><span class="fi">🤖</span><span>Elige tu personaje</span></div>
+    <div class="feat"><span class="fi">📚</span><span>6 unidades de contenido</span><span class="fl">5 gratis c/u</span></div>
+    <div class="feat"><span class="fi">📋</span><span>Guía Oficial — 40 preguntas reales</span><span class="fl">10 gratis</span></div>
+    <div class="feat"><span class="fi">✏️</span><span>Borrador táctil para calcular</span></div>
+    <div class="feat"><span class="fi">🔍</span><span>Revisión de errores explicada</span></div>
+  </div>
+
+  <div class="os-tag" id="os-tag"><span id="os-name">Detectando...</span></div>
+
+  <a class="cta-main" id="cta-btn" href="demo/index.html">
+    Abrir MateApp Demo →
+  </a>
+
+  <div class="steps" id="steps-ios">
+    <hr class="divider">
+    <div class="steps-ttl">📲 Instalar en iPhone / iPad</div>
+    <div class="step-row">
+      <div class="step-num" style="background:#dbeafe;color:#1e3a8a">1</div>
+      <div class="step-txt">Toca <strong>"Abrir MateApp Demo"</strong> arriba — se abrirá en Safari</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num" style="background:#dbeafe;color:#1e3a8a">2</div>
+      <div class="step-txt">Toca el botón <strong>Compartir ⬆️</strong> (abajo al centro en Safari)</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num" style="background:#dbeafe;color:#1e3a8a">3</div>
+      <div class="step-txt">Desliza y toca <strong>"Agregar a pantalla de inicio"</strong></div>
+    </div>
+    <div class="step-row">
+      <div class="step-num" style="background:#dcfce7;color:#14532d">4</div>
+      <div class="step-txt">Toca <strong>"Agregar"</strong> — ¡el ícono aparece en tu pantalla de inicio! 🎉</div>
+    </div>
+  </div>
+
+  <div class="steps" id="steps-android">
+    <hr class="divider">
+    <div class="steps-ttl">📲 Instalar en Android</div>
+    <div class="step-row">
+      <div class="step-num" style="background:#dcfce7;color:#14532d">1</div>
+      <div class="step-txt">Toca <strong>"Abrir MateApp Demo"</strong> arriba</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num" style="background:#dcfce7;color:#14532d">2</div>
+      <div class="step-txt">Chrome mostrará un banner <strong>"Instalar"</strong> en la parte inferior — tócalo</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num" style="background:#dcfce7;color:#14532d">3</div>
+      <div class="step-txt">Si no aparece el banner: toca el menú <strong>⋮</strong> → <strong>"Agregar a pantalla de inicio"</strong></div>
+    </div>
+  </div>
+
+  <div class="pro-teaser">
+    <p>¿Quieres las 20 preguntas completas por unidad, AmiCoins y la tienda de accesorios?</p>
+    <a href="https://wa.me/56988521349?text=Hola!%20quiero%20la%20versión%20Pro%20de%20MateApp%20📐">💬 Pedir versión Pro por WhatsApp</a>
+  </div>
+</div>
+
+<script>
+var ua = navigator.userAgent;
+var isIOS = /iphone|ipad|ipod/i.test(ua);
+var isAndroid = /android/i.test(ua);
+var isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+var isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+
+var osTag = document.getElementById('os-tag');
+var osName = document.getElementById('os-name');
+var stepsIOS = document.getElementById('steps-ios');
+var stepsAnd = document.getElementById('steps-android');
+var ctaBtn = document.getElementById('cta-btn');
+
+// Set OS label
+if(isIOS){
+  osName.textContent = '🍎 iPhone / iPad detectado';
+  if(!isStandalone){ stepsIOS.classList.add('show'); }
+  else { osName.textContent = '✅ App instalada correctamente'; }
+} else if(isAndroid){
+  osName.textContent = '🤖 Android detectado';
+  if(!isStandalone){ stepsAnd.classList.add('show'); }
+  else { osName.textContent = '✅ App instalada correctamente'; }
+} else {
+  osName.textContent = '💻 Escritorio';
+}
+
+// CTA button — point to the actual app file
+ctaBtn.href = 'demo.html';
+</script>
+</body>
+</html>
