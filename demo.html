@@ -380,6 +380,26 @@ html{-webkit-text-size-adjust:100%}
 .ac-help a{color:#2563eb;font-weight:600;text-decoration:none}
 @keyframes acShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 
+
+/* ── WELCOME SPLASH (post-auth) ───────────────────── */
+#pg-welcome{background:linear-gradient(160deg,#1e3a8a 0%,#2563eb 55%,#7c3aed 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 20px;padding-top:max(24px,env(safe-area-inset-top))}
+.wl-wrap{width:100%;max-width:360px;text-align:center}
+.wl-char{display:flex;justify-content:center;margin-bottom:16px}
+.wl-title{font-size:26px;font-weight:700;color:#fff;margin-bottom:8px}
+.wl-name{font-size:18px;color:#fde68a;font-weight:700;margin-bottom:4px}
+.wl-sub{font-size:13.5px;color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:28px}
+.wl-card{background:#fff;border-radius:20px;padding:22px 20px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.wl-card h2{font-size:17px;font-weight:700;color:#1f2937;margin-bottom:14px}
+.wl-features{display:flex;flex-direction:column;gap:9px;margin-bottom:20px}
+.wl-feat{display:flex;align-items:center;gap:10px;background:#f8fafc;border-radius:10px;padding:10px 12px;text-align:left}
+.wl-feat .wfi{font-size:20px;flex-shrink:0}
+.wl-feat .wft{font-size:13px;color:#374151;font-weight:500}
+.wl-btn{display:block;width:100%;padding:16px;border:none;border-radius:13px;font-size:16px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;-webkit-appearance:none;transition:opacity .15s}
+.wl-btn:active{opacity:.85}
+.wl-version{font-size:11px;color:#9ca3af;margin-top:12px}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.wl-wrap{animation:fadeInUp .4s ease}
+
 </style>
 </head>
 <body>
@@ -2194,7 +2214,7 @@ loadPlayer  = loadAll;
 
 
 // ══ ACCESS GATE SYSTEM ══════════════════════════════════════════
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbygi9a4Oqr5fo-t5IE5WRnDH2TmbHLUR__ZU-ujBtUmgfNTROUwd8yOBcQT3RndLRSd/exec';
+var SCRIPT_URL = 'TU_URL_AQUI';
 var ACCESS_KEY = 'mateapp_access_demo';
 
 function onCodeInput(){
@@ -2290,21 +2310,98 @@ function parseDateCL(str){
   }catch(e){ return null; }
 }
 
-function grantAccess(accessData){
-  // Store name in player if not set
-  if(accessData.nombre && (!player.name || player.name.length < 2)){
-    // Pre-fill name from access data
-    var inp2 = document.getElementById('ob-name');
-    if(inp2 && !inp2.value) inp2.value = accessData.nombre.split(' ')[0];
+
+// ── Welcome splash ────────────────────────────────────────────────
+function showWelcomeSplash(accessData, isNewUser){
+  // Fill welcome screen
+  var nameEl   = document.getElementById('wl-name');
+  var charEl   = document.getElementById('wl-char');
+  var headEl   = document.getElementById('wl-heading');
+  var featEl   = document.getElementById('wl-features');
+  var verEl    = document.getElementById('wl-version');
+
+  var nombre = accessData.nombre || player.name || 'Estudiante';
+  var version = (accessData.version || 'demo').toLowerCase();
+
+  if(nameEl) nameEl.textContent = nombre.split(' ')[0];
+  if(verEl)  verEl.textContent  = 'Versión ' + (version==='pro'?'Pro ✨':'Demo');
+
+  // Character preview
+  if(charEl){
+    if(player.charId && player.name){
+      charEl.innerHTML = drawCharSVG(player.charId, player.equipped||{}, 90);
+    } else {
+      charEl.innerHTML = '<div style="font-size:70px">📐</div>';
+    }
   }
-  // Go to onboarding or menu
+
+  // Heading
+  if(headEl){
+    headEl.textContent = isNewUser ? '¡Elige tu personaje para comenzar!' : '¿Qué quieres practicar hoy?';
+  }
+
+  // Features list
+  if(featEl){
+    var items = isNewUser
+      ? [
+          {i:'🤖', t:'Elige entre 4 personajes únicos'},
+          {i:'📚', t:'6 unidades de contenido'},
+          {i:'🪙', t:'Gana AmiCoins por cada acierto'},
+          {i:'🛍️', t:'Desbloquea accesorios en la tienda'},
+        ]
+      : [
+          {i:'📝', t:'Practicar ejercicios aleatorios'},
+          {i:'📋', t:'Guía Oficial — 40 preguntas del examen'},
+          {i:'🔍', t:'Revisar mis errores anteriores'},
+          {i:'🛍️', t:'Ir a la tienda de accesorios'},
+        ];
+    featEl.innerHTML = items.map(function(x){
+      return '<div class="wl-feat"><span class="wfi">'+x.i+'</span><span class="wft">'+x.t+'</span></div>';
+    }).join('');
+  }
+
+  // Show welcome page — clean scroll
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var pw = document.getElementById('pg-welcome');
+  if(pw){ pw.classList.add('active'); }
+  window.scrollTo(0,0);
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+function enterApp(){
   buildOnboard();
   if(loadAll() && player.name && player.name.length >= 2){
     startApp();
   } else {
     showPage('pg-onboard');
   }
+  window.scrollTo(0,0);
+  document.body.scrollTop = 0;
 }
+
+// ── Override grantAccess to show welcome splash ────────────────────
+function grantAccess(accessData){
+  // Pre-fill name from access data if player has no name yet
+  if(accessData.nombre && (!player.name || player.name.length < 2)){
+    var inp2 = document.getElementById('ob-name');
+    if(inp2 && !inp2.value) inp2.value = accessData.nombre.split(' ')[0];
+  }
+
+  // Check if new user
+  var hasProfile = false;
+  try{
+    var p = localStorage.getItem('mateapp_player') || localStorage.getItem('mateapp_demo_player');
+    hasProfile = !!(p && JSON.parse(p).name && JSON.parse(p).name.length >= 2);
+  }catch(e){}
+
+  // Load saved progress
+  loadAll();
+
+  // Show welcome splash
+  showWelcomeSplash(accessData, !hasProfile);
+}
+
 
 // Check on startup if already has valid access
 function checkAccessOnBoot(){
